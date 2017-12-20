@@ -13,33 +13,52 @@ namespace Adopter
 
             int maxRange = 1;
             Console.WriteLine(menuName+"\n------------------------------\n");
-            Console.WriteLine("1: {0}", menuOptionOne);
+            Console.WriteLine("1: {0}\n", menuOptionOne);
             if (menuOptionTwo != null) 
             {
                 maxRange = 2;
-                Console.WriteLine("2: {0}", menuOptionTwo);
+                Console.WriteLine("2: {0}\n", menuOptionTwo);
             }
             if (menuOptionThree != null)
             {
                 maxRange = 3;
-                Console.WriteLine("3: {0}", menuOptionThree);
+                Console.WriteLine("3: {0}\n", menuOptionThree);
             }
             if (menuOptionFour != null)
             {
                 maxRange = 4;
-                Console.WriteLine("4: {0}", menuOptionFour);
+                Console.WriteLine("4: {0}\n", menuOptionFour);
             }
             if (menuOptionFive != null)
             {
                 maxRange = 5;
-                Console.WriteLine("5: {0}", menuOptionFive);
+                Console.WriteLine("5: {0}\n", menuOptionFive);
             }
+            DisplayPossibleInputs(maxRange);
             return GetInput(maxRange);
         }
 
-        
+        public static void DisplayPossibleInputs(int maxRange)
+        {
+            for (int i = 1; i <= maxRange; i++)
+            {
+                
+                if (i == 1)
+                {
+                    Console.Write("Menu navigation options: '");
+                }
+                if (i > 1 && i != maxRange+1)
+                {
+                    Console.Write(", '");
+                }
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(i);
+                Console.ResetColor();
+                Console.Write("'");
+            }
+        }
 
-            public static string GetInput(int maxInput)
+        public static string GetInput(int maxInput)
         {
             int input = 0;
             bool flag1 = false;
