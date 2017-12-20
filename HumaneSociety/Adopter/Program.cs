@@ -10,6 +10,10 @@ namespace Adopter
     {
         static void Main(string[] args)
         {
+            Profile profile = new Adopter.Profile();
+            profile.GetProfileMenu();
+           
+            
 
         }
     }
