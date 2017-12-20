@@ -10,6 +10,9 @@ namespace HumaneSociety
     {
         static void Main(string[] args)
         {
+            string input = UI.GetInput(4);
+            Console.WriteLine(input);
+            Console.ReadLine();
         }
     }
 }
