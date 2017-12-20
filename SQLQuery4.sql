@@ -1,0 +1,11 @@
+ALTER TABLE Animals
+ADD FOREIGN KEY (Animal_Type) REFERENCES Animal_Type(ID);
+
+ALTER TABLE Animals
+ADD FOREIGN KEY (Room_Number) REFERENCES Room_Number(ID);
+
+ALTER TABLE Animals
+ADD FOREIGN KEY (Food_Consumption) REFERENCES Food_Amount(ID);
+
+ALTER TABLE Animals
+ADD FOREIGN KEY (Age) REFERENCES Age(ID);

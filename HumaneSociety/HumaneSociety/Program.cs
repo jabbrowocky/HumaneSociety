@@ -10,9 +10,9 @@ namespace HumaneSociety
     {
         static void Main(string[] args)
         {
-            string input = UI.GetInput(4);
-            Console.WriteLine(input);
-            Console.ReadLine();
+            Ledger ledger = new HumaneSociety.Ledger();
+            Shelter_Management shelter_management = new Shelter_Management(ledger);
+            shelter_management.MainMenu();
         }
     }
 }
