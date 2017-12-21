@@ -66,7 +66,7 @@ namespace HumaneSociety
         }
         public static string AnimalTraitsText()
         {
-            string text = "Search Animals by Traits \nSelect up to options\n\n[1] Name\n[2] Type\n[3] Cost\n[4] Kennel #\n[5] Adoption Status\n[6] Vaccination Status \n[7] Food Requirements\n[8] Select Animal Menu [9] Main Menu";
+            string text = "Search Animals by Traits \nChange fields then 'Execute Search' when ready\n\n[1] Name\n[2] Age\n[3] Kennel #\n[4] Weekly Food Allowance\n[5] Cost\n[6] Species\n[7] Vaccination Status\n[8] Adoption Status\n\n[9] Execute Search\n\n[10] Select Animal Menu \n[11] Main Menu";
             return text;
         }
         public static string AnimalIntakeText()

@@ -66,7 +66,7 @@ namespace HumaneSociety
                     break;
                 case 2:
                     Console.Clear();
-                    //AnimalTraitSearchMenu();
+                    SearchAnimalMenu();
                     break;
                 case 3:
                     Console.Clear();
@@ -80,12 +80,14 @@ namespace HumaneSociety
         }
         public void AlterAnimalInfoMenu()
         {
-            string name = "Al";
-            string age = "3";
+            string name = null;
+            string age = null;
             string kennel = null;
             string foodReq = null;
             string cost = null;
             string species = null;
+            string vaccinated = null;
+            string adopted = null;
 
             string menuText = UI.AlterAnimalInfoText();
             UI.DisplayMenu(menuText);
@@ -117,12 +119,92 @@ namespace HumaneSociety
                     //AlterDBSpecies(species);
                     break;
                 case 7:
-                    ExecuteQuery(name, age, kennel, foodReq, cost, species);
+                    ExecuteQuery(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
                     break;
                 case 8:
                     Console.Clear();
                     MainMenu();
                     break;
+            }
+        }
+        public void SearchAnimalMenu()
+        {
+            string name = null;
+            string age = null;
+            string kennel = null;
+            string foodReq = null;
+            string cost = null;
+            string species = null;
+            string vaccinated = null;
+            string adopted = null;
+
+            bool flag = false;
+
+            string menuText = UI.AnimalTraitsText();
+            UI.DisplayMenu(menuText);
+            while (flag == false)
+            {
+                int input = UI.GetInput(10);
+                switch (input)
+                {
+                    case 1:
+                        name = AlterTrait("name");
+                        Console.Clear();
+                        menuText = UI.AnimalTraitsText();
+                        UI.DisplayMenu(menuText);
+                        break;
+                    case 2:
+                        age = AlterTrait("age");
+                        Console.Clear();
+                        menuText = UI.AnimalTraitsText();
+                        UI.DisplayMenu(menuText);
+                        break;
+                    case 3:
+                        kennel = AlterTrait("kennel number");
+                        Console.Clear();
+                        menuText = UI.AnimalTraitsText();
+                        UI.DisplayMenu(menuText);
+                        break;
+                    case 4:
+                        foodReq = AlterTrait("weekly Food Allowance");
+                        Console.Clear();
+                        menuText = UI.AnimalTraitsText();
+                        UI.DisplayMenu(menuText);
+                        break;
+                    case 5:
+                        cost = AlterTrait("cost");
+                        Console.Clear();
+                        menuText = UI.AnimalTraitsText();
+                        UI.DisplayMenu(menuText);
+                        break;
+                    case 6:
+                        species = AlterTrait("species");
+                        Console.Clear();
+                        menuText = UI.AnimalTraitsText();
+                        UI.DisplayMenu(menuText);
+                        break;
+                    case 7:
+                        species = AlterTrait("vaccination status");
+                        Console.Clear();
+                        menuText = UI.AnimalTraitsText();
+                        UI.DisplayMenu(menuText);
+                        break;
+                    case 8:
+                        species = AlterTrait("adoption status");
+                        Console.Clear();
+                        menuText = UI.AnimalTraitsText();
+                        UI.DisplayMenu(menuText);
+                        break;
+                    case 9:
+                        flag = true;
+                        ExecuteQuery(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
+                        break;
+                    case 10:
+                        Console.Clear();
+                        flag = true;
+                        MainMenu();
+                        break;
+                }
             }
         }
         public void AnimalIntakeMenu()
@@ -146,11 +228,11 @@ namespace HumaneSociety
                     break;
             }
         }
-        public void ExecuteQuery(string name, string age, string kennel, string foodReq, string cost, string species)
+        public void ExecuteQuery(string name, string age, string kennel, string foodReq, string cost, string species, string vaccinated, string adopted)
         {
-            List<string> queryList = BuildQueryString(name, age, kennel, foodReq, cost, species);
+            List<string> queryList = BuildQueryString(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
         }
-        public List<string> BuildQueryString(string name, string age, string kennel, string foodReq, string cost, string species)
+        public List<string> BuildQueryString(string name, string age, string kennel, string foodReq, string cost, string species, string vaccinated, string adopted)
         {
             List<string> queryList = new List<string>();
             if (name != null)
@@ -173,7 +255,21 @@ namespace HumaneSociety
             {
                 queryList.Add(cost);
             }
+            if (vaccinated != null)
+            {
+                queryList.Add(cost);
+            }
+            if (adopted != null)
+            {
+                queryList.Add(cost);
+            }
             return queryList;
+        }
+        public string AlterTrait(string trait)
+        {
+            Console.WriteLine("What would you like to change {0} to?", trait);
+            string value = Console.ReadLine();
+            return value;
         }
     }
 }
