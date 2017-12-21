@@ -26,7 +26,7 @@ namespace HumaneSociety
             {
                 while (reader.Read())
                 {
-                    Console.WriteLine(String.Format("{0}, {1}, {2}", reader["ID"], reader["Species"]));
+                    Console.WriteLine(String.Format("{0}, {1}", reader["ID"], reader["Species"]));
                 }
             }
             finally
