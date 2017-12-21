@@ -46,10 +46,12 @@ namespace HumaneSociety
                if(i == 0)
                 {
                     queryString += String.Format("WHERE {0} = {1}", columnsString[i], valuesString[i]);
+                    i++;
                 } 
                else
                 {
                     queryString += String.Format(" AND {0} = {1}", columnsString[i], valuesString[i]);
+                    i++;
                 }
             }
             return queryString;
