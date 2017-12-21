@@ -10,11 +10,13 @@ namespace Adopter
     {
         static void Main(string[] args)
         {
-            Profile profile = new Adopter.Profile();
-            profile.GetProfileMenu();
-           
-            
+            //UI.RebuildForCursorSelectionMenu("test", "hello", "world","press enter");
 
+            List<string> stringlist = new List<string>() { "hi", "world", "fuckinga" };
+            string text = string.Join(",", stringlist);
+            Console.WriteLine(text);
+            Console.ReadKey();
+            
         }
     }
 }
