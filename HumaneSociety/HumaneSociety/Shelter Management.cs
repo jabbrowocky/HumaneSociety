@@ -29,7 +29,7 @@ namespace HumaneSociety
                 case 2:
                     Console.Clear();
                     //find animal
-                    AlterAnimalInfoMenu(animal);
+                   // AlterAnimalInfoMenu(animal);
                     break;
                 case 3:
                     Console.Clear();
@@ -93,28 +93,28 @@ namespace HumaneSociety
             switch (input)
             {
                 case 1:
-                    name = AlterTrait();
-                    AlterDBName(name);
+                   // name = AlterTrait();
+                    //AlterDBName(name);
                     break;
                 case 2:
-                    age = AlterTrait();
-                    AlterDBAge(age);
+                    //age = AlterTrait();
+                    //AlterDBAge(age);
                     break;
                 case 3:
-                    kennel = AlterTrait();
-                    AlterDBKennel(kennel);
+                    //kennel = AlterTrait();
+                    //AlterDBKennel(kennel);
                     break;
                 case 4:
-                    foodReq = AlterTrait();
-                    AlterDBFoodReq(foodReq);
+                    //foodReq = AlterTrait();
+                    //AlterDBFoodReq(foodReq);
                     break;
                 case 5:
-                    cost = AlterCost();
-                    AlterDBCost(cost);
+                    //cost = AlterCost();
+                    //AlterDBCost(cost);
                     break;
                 case 6:
-                    species = AlterSpecies();
-                    AlterDBSpecies(species);
+                    //species = AlterSpecies();
+                    //AlterDBSpecies(species);
                     break;
                 case 7:
                     Console.Clear();
