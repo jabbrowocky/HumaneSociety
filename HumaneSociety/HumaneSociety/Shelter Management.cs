@@ -19,7 +19,7 @@ namespace HumaneSociety
         {
             string menuText = UI.MainMenuText();
             UI.DisplayMenu(menuText);
-            int input = UI.GetInput(6);
+            int input = UI.GetInput(7);
             switch (input)
             {
                 case 1:
@@ -29,7 +29,7 @@ namespace HumaneSociety
                 case 2:
                     Console.Clear();
                     //find animal
-                   // AlterAnimalInfoMenu(animal);
+                   AlterAnimalInfoMenu();
                     break;
                 case 3:
                     Console.Clear();
@@ -78,24 +78,24 @@ namespace HumaneSociety
                     break;
             }
         }
-        public void AlterAnimalInfoMenu(string animal)
+        public void AlterAnimalInfoMenu()
         {
-            string name;
-            float age;
-            int kennel;
-            float foodReq;
-            float cost;
-            string species;
+            string name = "Al";
+            string age = "3";
+            string kennel = null;
+            string foodReq = null;
+            string cost = null;
+            string species = null;
 
             string menuText = UI.AlterAnimalInfoText();
             UI.DisplayMenu(menuText);
-            int input = UI.GetInput(7);
+            int input = UI.GetInput(8);
             switch (input)
             {
                 case 1:
                    // name = AlterTrait();
-                    //AlterDBName(name);
-                    break;
+                   //AlterDBName(name);
+                   break;
                 case 2:
                     //age = AlterTrait();
                     //AlterDBAge(age);
@@ -117,6 +117,9 @@ namespace HumaneSociety
                     //AlterDBSpecies(species);
                     break;
                 case 7:
+                    ExecuteQuery(name, age, kennel, foodReq, cost, species);
+                    break;
+                case 8:
                     Console.Clear();
                     MainMenu();
                     break;
@@ -142,6 +145,35 @@ namespace HumaneSociety
                     MainMenu();
                     break;
             }
+        }
+        public void ExecuteQuery(string name, string age, string kennel, string foodReq, string cost, string species)
+        {
+            List<string> queryList = BuildQueryString(name, age, kennel, foodReq, cost, species);
+        }
+        public List<string> BuildQueryString(string name, string age, string kennel, string foodReq, string cost, string species)
+        {
+            List<string> queryList = new List<string>();
+            if (name != null)
+            {
+                queryList.Add(name);
+            }
+            if (age != null)
+            {
+                queryList.Add(age);
+            }
+            if (kennel != null)
+            {
+                queryList.Add(kennel);
+            }
+            if (foodReq != null)
+            {
+                queryList.Add(foodReq);
+            }
+            if (cost != null)
+            {
+                queryList.Add(cost);
+            }
+            return queryList;
         }
     }
 }
