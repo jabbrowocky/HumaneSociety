@@ -9,6 +9,7 @@ namespace Adopter
     class Profile
     {
         //member variables
+       
         
         string housingStatus;
         string firstName = "First Name";
@@ -19,7 +20,7 @@ namespace Adopter
         //ctor
         public Profile()
         {
-                
+            
         }
         //methods
         
@@ -27,7 +28,7 @@ namespace Adopter
         {
             string menuName = "Profile Setup";
             string userInput; 
-            userInput = UI.DisplayOptions(menuName, "Name", "Age", "Housing Status", "Current pets (if any)", "ViewUserProfile");
+            userInput = UI.DisplayOptions(menuName, "Name", "Age", "Housing Status", "Current pets (if any)", "View User Profile","Return To Main Menu");
             ImplementProfileMenuLogic(userInput);
         }
         void ImplementProfileMenuLogic(string userInput)
@@ -49,7 +50,11 @@ namespace Adopter
                 case "5":
                     GetProfileInfo();
                     break;
-                             
+                case "6":
+                    Console.Clear();
+                    
+                    
+                    break;            
                 
             }
         }

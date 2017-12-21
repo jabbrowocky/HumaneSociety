@@ -8,7 +8,7 @@ namespace Adopter
 {
     static class UI
     {
-        public static string DisplayOptions(string menuName, string menuOptionOne, string menuOptionTwo = null, string menuOptionThree = null, string menuOptionFour = null, string menuOptionFive = null)
+        public static string DisplayOptions(string menuName, string menuOptionOne, string menuOptionTwo = null, string menuOptionThree = null, string menuOptionFour = null, string menuOptionFive = null, string menuOptionSix = null)
         {
 
             int maxRange = 1;
@@ -34,11 +34,16 @@ namespace Adopter
                 maxRange = 5;
                 Console.WriteLine("5: {0}\n", menuOptionFive);
             }
+            if (menuOptionSix != null)
+            {
+                maxRange = 6;
+                Console.WriteLine("6: {0}\n", menuOptionSix);
+            }
             DisplayPossibleInputs(maxRange);
             return GetInput(maxRange);
         }
 
-        public static void DisplayPossibleInputs(int maxRange)
+        static void DisplayPossibleInputs(int maxRange)
         {
             for (int i = 1; i <= maxRange; i++)
             {
@@ -58,7 +63,7 @@ namespace Adopter
             }
         }
 
-        public static string GetInput(int maxInput)
+        static string GetInput(int maxInput)
         {
             int input = 0;
             bool flag1 = false;
