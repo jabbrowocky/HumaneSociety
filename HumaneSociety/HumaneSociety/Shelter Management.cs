@@ -303,5 +303,12 @@ namespace HumaneSociety
             string value = Console.ReadLine();
             return value;
         }
+        public void ExecuteAddData(string name, string age, string kennel, string foodReq, string cost, string species, string vaccinated, string adopted)
+        {
+            List<string> dataValuesList = BuildQueryValues(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
+            List<string> dataColumnsList = BuildQueryColumns(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
+            string dataString = sqlConnect.ConstructAddDataString(dataValuesList, dataColumnsList);
+            sqlConnect.AddData(dataString);
+        }
     }
 }

@@ -45,18 +45,38 @@ namespace HumaneSociety
             {
                if(i == 0)
                 {
-                    queryString += String.Format("WHERE {0} = {1}", columnsString[i], valuesString[i]);
+                    queryString += String.Format("WHERE {0} = '{1}'", columnsString[i], valuesString[i]);
                     i++;
                 } 
                else
                 {
-                    queryString += String.Format(" AND {0} = {1}", columnsString[i], valuesString[i]);
+                    queryString += String.Format(" AND {0} = '{1}'", columnsString[i], valuesString[i]);
                     i++;
                 }
             }
             return queryString;
 
         }
-
+        public int AddData(string inputData)
+        {
+            conn.Open();
+            command = new SqlCommand(inputData, conn);
+            try
+            {
+               int rowsAffected = command.ExecuteNonQuery();
+               return rowsAffected;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+        public string ConstructAddDataString(List<string> valuesList, List<string> columnsList)
+        {
+            string valuesString = string.Join(", ", valuesList);
+            string columnsString = string.Join(", ", columnsList);
+            string dataString = string.Format("INSERT into Animal ({0}) VALUES ({1})", columnsString, valuesString);           
+            return dataString;
+        }
     }
 }
