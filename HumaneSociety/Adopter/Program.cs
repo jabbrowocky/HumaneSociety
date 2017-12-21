@@ -10,7 +10,7 @@ namespace Adopter
     {
         static void Main(string[] args)
         {
-            AdopterMainPage StartPage = new AdopterMainPage();
+            AdopterEnvironment StartPage = new AdopterEnvironment();
             StartPage.GetAdopterMenu();
         }
     }

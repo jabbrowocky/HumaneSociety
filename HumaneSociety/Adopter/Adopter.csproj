@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdopterMainPage.cs" />
+    <Compile Include="AdopterEnvironment.cs" />
     <Compile Include="IDatabase.cs" />
     <Compile Include="Profile.cs" />
     <Compile Include="Program.cs" />

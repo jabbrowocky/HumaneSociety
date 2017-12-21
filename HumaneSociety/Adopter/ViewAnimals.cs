@@ -8,12 +8,12 @@ namespace Adopter
 {
     class ViewAnimals
     {
-        AdopterMainPage returnToPage;
+        AdopterEnvironment returnToPage;
         IDatabase dB;
         public ViewAnimals(IDatabase dB)
         {
             this.dB = dB;
-            returnToPage = new AdopterMainPage(dB);
+            
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Adopter
 {
     class User
     {
-        Profile userProfile;
+        public Profile userProfile;
         public User(Profile userProfile)
         {
             this.userProfile = userProfile;
