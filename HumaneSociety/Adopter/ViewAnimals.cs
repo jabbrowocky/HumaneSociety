@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace Adopter
 {
-    class Program
+    class ViewAnimals
     {
-        static void Main(string[] args)
+        AdopterEnvironment returnToPage;
+        IDatabase dB;
+        public ViewAnimals(IDatabase dB)
         {
-            AdopterEnvironment StartPage = new AdopterEnvironment();
-            StartPage.GetAdopterMenu();
+            this.dB = dB;
+            
         }
     }
 }

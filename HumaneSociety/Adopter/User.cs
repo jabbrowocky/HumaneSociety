@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Adopter
 {
-    class Program
+    class User
     {
-        static void Main(string[] args)
+        public Profile userProfile;
+        public User(Profile userProfile)
         {
-            AdopterEnvironment StartPage = new AdopterEnvironment();
-            StartPage.GetAdopterMenu();
+            this.userProfile = userProfile;
         }
+
     }
 }
