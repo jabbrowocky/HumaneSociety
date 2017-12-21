@@ -10,10 +10,12 @@ namespace HumaneSociety
     {
 
         Ledger ledger;
+        SQLConnect sqlConnect;
 
-        public Shelter_Management(Ledger ledger)
+        public Shelter_Management(Ledger ledger, SQLConnect sqlConnect)
         {
             this.ledger = ledger;
+            this.sqlConnect = sqlConnect;
         }
         public void MainMenu()
         {
@@ -29,7 +31,7 @@ namespace HumaneSociety
                 case 2:
                     Console.Clear();
                     //find animal
-                   AlterAnimalInfoMenu();
+                    AlterAnimalInfoMenu();
                     break;
                 case 3:
                     Console.Clear();
@@ -62,7 +64,7 @@ namespace HumaneSociety
             {
                 case 1:
                     Console.Clear();
-                    //DisplayAllUnadopted();
+                    ExecuteQuery(null, null, null, null, null, null, null, "yes");
                     break;
                 case 2:
                     Console.Clear();
@@ -95,28 +97,22 @@ namespace HumaneSociety
             switch (input)
             {
                 case 1:
-                   // name = AlterTrait();
-                   //AlterDBName(name);
+                   name = AlterTrait("name");
                    break;
                 case 2:
-                    //age = AlterTrait();
-                    //AlterDBAge(age);
+                    age = AlterTrait("age");
                     break;
                 case 3:
-                    //kennel = AlterTrait();
-                    //AlterDBKennel(kennel);
+                    kennel = AlterTrait("kennel number");
                     break;
                 case 4:
-                    //foodReq = AlterTrait();
-                    //AlterDBFoodReq(foodReq);
+                    foodReq = AlterTrait("weekly food requirement");
                     break;
                 case 5:
-                    //cost = AlterCost();
-                    //AlterDBCost(cost);
+                    cost = AlterTrait("cost");
                     break;
                 case 6:
-                    //species = AlterSpecies();
-                    //AlterDBSpecies(species);
+                    species = AlterTrait("species");
                     break;
                 case 7:
                     ExecuteQuery(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
@@ -230,9 +226,12 @@ namespace HumaneSociety
         }
         public void ExecuteQuery(string name, string age, string kennel, string foodReq, string cost, string species, string vaccinated, string adopted)
         {
-            List<string> queryList = BuildQueryString(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
+            List<string> queryValuesList = BuildQueryValues(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
+            List<string> queryColumnsList = BuildQueryColumns(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
+            string queryString = sqlConnect.ConstructSearhString(queryValuesList, queryColumnsList);
+            sqlConnect.SearchSQLQuery(queryString);
         }
-        public List<string> BuildQueryString(string name, string age, string kennel, string foodReq, string cost, string species, string vaccinated, string adopted)
+        public List<string> BuildQueryValues(string name, string age, string kennel, string foodReq, string cost, string species, string vaccinated, string adopted)
         {
             List<string> queryList = new List<string>();
             if (name != null)
@@ -265,9 +264,42 @@ namespace HumaneSociety
             }
             return queryList;
         }
+        public List<string> BuildQueryColumns(string name, string age, string kennel, string foodReq, string cost, string species, string vaccinated, string adopted)
+        {
+            List<string> queryList = new List<string>();
+            if (name != null)
+            {
+                queryList.Add("Pet_Name");
+            }
+            if (age != null)
+            {
+                queryList.Add("Age");
+            }
+            if (kennel != null)
+            {
+                queryList.Add("Room_Number");
+            }
+            if (foodReq != null)
+            {
+                queryList.Add("Food_Consumption");
+            }
+            if (cost != null)
+            {
+                queryList.Add("Cost");
+            }
+            if (vaccinated != null)
+            {
+                queryList.Add("Shot_Status");
+            }
+            if (adopted != null)
+            {
+                queryList.Add("Adoption_Status");
+            }
+            return queryList;
+        }
         public string AlterTrait(string trait)
         {
-            Console.WriteLine("What would you like to change {0} to?", trait);
+            Console.WriteLine("What would you like {0} to be?", trait);
             string value = Console.ReadLine();
             return value;
         }
