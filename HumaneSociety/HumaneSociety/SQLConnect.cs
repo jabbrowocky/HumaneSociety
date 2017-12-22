@@ -17,8 +17,9 @@ namespace HumaneSociety
         {
             conn = new SqlConnection("Data Source =.; Initial Catalog = Humane Society; Integrated Security = True");
         }
-        public void SearchSQLQuery(string queryString)
+        public List<Animal> SearchSQLQuery(string queryString)
         {
+            List<Animal> SearchAnimalList = new List<Animal>();
             conn.Open();
             command = new SqlCommand(queryString, conn);
             reader = command.ExecuteReader();
@@ -27,8 +28,10 @@ namespace HumaneSociety
                 int i = 1;
                 while (reader.Read())
                 {
-                    Console.WriteLine(String.Format("[{0}] {1} {2}", i, reader["ID"], reader["Species"]));
+                    Console.WriteLine(String.Format("[{0}] {1} {2} {3} {4} {5} {6} {7} {8}", i, reader["Pet_Name"], reader["Animal_Type"], reader["Age"], reader["Food_Consumption"], reader["Room_Number"], reader["Cost"], reader["Shot_Status"], reader["Adoption_Status"]));
                     i++;
+                    Animal animal = new Animal(reader["Pet_Name"].ToString(), reader["Animal_Type"].ToString(), reader["Age"].ToString(), reader["Cost"].ToString(), reader["Room_Number"].ToString(), reader["Adoption_Status"].ToString(), reader["Shot_Status"].ToString(), reader["Food_Consumption"].ToString());
+                    SearchAnimalList.Add(animal);
                 }
             }
             finally
@@ -36,6 +39,7 @@ namespace HumaneSociety
                 reader.Close();
                 conn.Close();
             }
+            return SearchAnimalList;
         }
         public string ConstructSearhString(List<string> valuesString, List<string> columnsString)
         {
