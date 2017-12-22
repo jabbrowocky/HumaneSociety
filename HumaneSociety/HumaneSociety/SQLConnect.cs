@@ -17,16 +17,18 @@ namespace HumaneSociety
         {
             conn = new SqlConnection("Data Source =.; Initial Catalog = Humane Society; Integrated Security = True");
         }
-        public void CreateSQLCommand(string queryString)
+        public void SearchSQLQuery(string queryString)
         {
             conn.Open();
             command = new SqlCommand(queryString, conn);
             reader = command.ExecuteReader();
             try
             {
+                int i = 1;
                 while (reader.Read())
                 {
-                    Console.WriteLine(String.Format("{0}, {1}", reader["ID"], reader["Species"]));
+                    Console.WriteLine(String.Format("[{0}] {1} {2}", i, reader["ID"], reader["Species"]));
+                    i++;
                 }
             }
             finally
@@ -35,10 +37,51 @@ namespace HumaneSociety
                 conn.Close();
             }
         }
-        public void CreateSQLReader()
+        public string ConstructSearhString(List<string> valuesString, List<string> columnsString)
         {
-            reader = command.ExecuteReader();
-        }
+            int i = 0;
+            string queryString = "SELECT * FROM [Animals] ";
+            while (i < valuesString.Count)
+            {
+               if(i == 0)
+                {
+                    queryString += String.Format("WHERE {0} = '{1}'", columnsString[i], valuesString[i]);
+                    i++;
+                }
+               if(i == valuesString.Count-1)
+                {
+                    queryString += String.Format(" AND {0} = '{1}';", columnsString[i], valuesString[i]);
+                    i++;
+                }
+                else
+                {
+                    queryString += String.Format(" AND {0} = '{1}'", columnsString[i], valuesString[i]);
+                    i++;
+                }
+            }
+            return queryString;
 
+        }
+        public int AddData(string inputData)
+        {
+            conn.Open();
+            command = new SqlCommand(inputData, conn);
+            try
+            {
+               int rowsAffected = command.ExecuteNonQuery();
+               return rowsAffected;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+        public string ConstructAddDataString(List<string> valuesList, List<string> columnsList)
+        {
+            string valuesString = string.Join(", ", valuesList);
+            string columnsString = string.Join(", ", columnsList);
+            string dataString = string.Format("INSERT into Animals ({0}) VALUES ({1})", columnsString, valuesString);           
+            return dataString;
+        }
     }
 }

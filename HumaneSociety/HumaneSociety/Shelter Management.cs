@@ -10,10 +10,12 @@ namespace HumaneSociety
     {
 
         Ledger ledger;
+        SQLConnect sqlConnect;
 
-        public Shelter_Management(Ledger ledger)
+        public Shelter_Management(Ledger ledger, SQLConnect sqlConnect)
         {
             this.ledger = ledger;
+            this.sqlConnect = sqlConnect;
         }
         public void MainMenu()
         {
@@ -29,7 +31,7 @@ namespace HumaneSociety
                 case 2:
                     Console.Clear();
                     //find animal
-                   AlterAnimalInfoMenu();
+                    AlterAnimalInfoMenu();
                     break;
                 case 3:
                     Console.Clear();
@@ -62,7 +64,7 @@ namespace HumaneSociety
             {
                 case 1:
                     Console.Clear();
-                    //DisplayAllUnadopted();
+                    ExecuteQuery(null, null, null, null, null, null, null, "yes");
                     break;
                 case 2:
                     Console.Clear();
@@ -95,28 +97,22 @@ namespace HumaneSociety
             switch (input)
             {
                 case 1:
-                   // name = AlterTrait();
-                   //AlterDBName(name);
+                   name = AlterTrait("name");
                    break;
                 case 2:
-                    //age = AlterTrait();
-                    //AlterDBAge(age);
+                    age = AlterTrait("age");
                     break;
                 case 3:
-                    //kennel = AlterTrait();
-                    //AlterDBKennel(kennel);
+                    kennel = AlterTrait("kennel number");
                     break;
                 case 4:
-                    //foodReq = AlterTrait();
-                    //AlterDBFoodReq(foodReq);
+                    foodReq = AlterTrait("weekly food requirement");
                     break;
                 case 5:
-                    //cost = AlterCost();
-                    //AlterDBCost(cost);
+                    cost = AlterTrait("cost");
                     break;
                 case 6:
-                    //species = AlterSpecies();
-                    //AlterDBSpecies(species);
+                    species = AlterTrait("species");
                     break;
                 case 7:
                     ExecuteQuery(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
@@ -216,7 +212,7 @@ namespace HumaneSociety
             {
                 case 1:
                     Console.Clear();
-                    //AddAnimal();
+                    AddAnimal();
                     break;
                 case 2:
                     Console.Clear();
@@ -230,46 +226,243 @@ namespace HumaneSociety
         }
         public void ExecuteQuery(string name, string age, string kennel, string foodReq, string cost, string species, string vaccinated, string adopted)
         {
-            List<string> queryList = BuildQueryString(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
+            List<string> queryValuesList = BuildQueryValues(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
+            List<string> queryColumnsList = BuildQueryColumns(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
+            string queryString = sqlConnect.ConstructSearhString(queryValuesList, queryColumnsList);
+            sqlConnect.SearchSQLQuery(queryString);
         }
-        public List<string> BuildQueryString(string name, string age, string kennel, string foodReq, string cost, string species, string vaccinated, string adopted)
+        public List<string> BuildQueryValues(string name, string age, string kennel, string foodReq, string cost, string species, string vaccinated, string adopted)
         {
             List<string> queryList = new List<string>();
             if (name != null)
             {
-                queryList.Add(name);
+                queryList.Add("'"+name+"'");
             }
-            if (age != null)
+            if (age == ".5" || foodReq == "0.5")
             {
-                queryList.Add(age);
+                queryList.Add("1");
+            }
+            if (age == "1")
+            {
+                queryList.Add("2");
+            }
+            if (age == "2")
+            {
+                queryList.Add("3");
+            }
+            if (age == "3")
+            {
+                queryList.Add("4");
+            }
+            if (age == "4")
+            {
+                queryList.Add("5");
+            }
+            if (age == "5")
+            {
+                queryList.Add("6");
+            }
+            if (age == "6")
+            {
+                queryList.Add("7");
+            }
+            if (age == "7")
+            {
+                queryList.Add("8");
+            }
+            if (age == "8")
+            {
+                queryList.Add("9");
+            }
+            if (age == "9")
+            {
+                queryList.Add("10");
+            }
+            if (age == "10")
+            {
+                queryList.Add("11");
+            }
+            if (age == "11")
+            {
+                queryList.Add("12");
+            }
+            if (age == "12")
+            {
+                queryList.Add("13");
             }
             if (kennel != null)
             {
                 queryList.Add(kennel);
             }
-            if (foodReq != null)
+            if (foodReq == ".5" || foodReq == "0.5")
             {
-                queryList.Add(foodReq);
+                queryList.Add("1");
+            }
+            if (foodReq == "1")
+            {
+                queryList.Add("2");
+            }
+            if (foodReq == "1.5")
+            {
+                queryList.Add("3");
+            }
+            if (foodReq == "2")
+            {
+                queryList.Add("4");
+            }
+            if (foodReq == "2.5")
+            {
+                queryList.Add("5");
+            }
+            if (foodReq == "3")
+            {
+                queryList.Add("6");
+            }
+            if (foodReq == "3.5")
+            {
+                queryList.Add("7");
+            }
+            if (foodReq == "4")
+            {
+                queryList.Add("8");
+            }
+            if (foodReq == "4.5")
+            {
+                queryList.Add("9");
+            }
+            if (foodReq == "5")
+            {
+                queryList.Add("10");
+            }
+            if (foodReq == "5.5")
+            {
+                queryList.Add("11");
+            }
+            if (foodReq == "6")
+            {
+                queryList.Add("12");
             }
             if (cost != null)
             {
                 queryList.Add(cost);
             }
+            if (species == "Dog" || species == "dog")
+            {
+                queryList.Add("2");
+            }
+            if (species == "Cat" || species == "cat")
+            {
+                queryList.Add("1");
+            }
+            if (species == "Bird" || species == "bird")
+            {
+                queryList.Add("3");
+            }
+            if (species == "Rabbit" || species == "rabbit" || species == "Bunny" || species == "bunny")
+            {
+                queryList.Add("4");
+            }
+            if (species == "Ferret" || species == "ferret")
+            {
+                queryList.Add("5");
+            }
+            if (vaccinated == "Yes" || vaccinated == "yes" || vaccinated == "Y" || vaccinated == "y")
+            {
+                queryList.Add("1");
+            }
+            if (vaccinated == "No" || vaccinated == "no" || vaccinated == "N" || vaccinated == "n")
+            {
+                queryList.Add("0");
+            }
+            if (adopted == "Yes" || vaccinated == "yes" || vaccinated == "Y" || vaccinated == "y")
+            {
+                queryList.Add("1");
+            }
+            if (adopted == "No" || vaccinated == "no" || vaccinated == "N" || vaccinated == "n")
+            {
+                queryList.Add("0");
+            }
+            return queryList;
+        }
+        public List<string> BuildQueryColumns(string name, string age, string kennel, string foodReq, string cost, string species, string vaccinated, string adopted)
+        {
+            List<string> queryList = new List<string>();
+            if (name != null)
+            {
+                queryList.Add("Pet_Name");
+            }
+            if (age != null)
+            {
+                queryList.Add("Age");
+            }
+            if (kennel != null)
+            {
+                queryList.Add("Room_Number");
+            }
+            if (foodReq != null)
+            {
+                queryList.Add("Food_Consumption");
+            }
+            if (cost != null)
+            {
+                queryList.Add("Cost");
+            }
+            if (species != null)
+            {
+                queryList.Add("Animal_Type");
+            }
             if (vaccinated != null)
             {
-                queryList.Add(cost);
+                queryList.Add("Shot_Status");
             }
             if (adopted != null)
             {
-                queryList.Add(cost);
+                queryList.Add("Adoption_Status");
             }
             return queryList;
         }
         public string AlterTrait(string trait)
         {
-            Console.WriteLine("What would you like to change {0} to?", trait);
+            Console.WriteLine("What would you like {0} to be?", trait);
             string value = Console.ReadLine();
             return value;
+        }
+        public void ExecuteAddData(string name, string age, string kennel, string foodReq, string cost, string species, string vaccinated, string adopted)
+        {
+            List<string> dataValuesList = BuildQueryValues(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
+            List<string> dataColumnsList = BuildQueryColumns(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
+            string dataString = sqlConnect.ConstructAddDataString(dataValuesList, dataColumnsList);
+            sqlConnect.AddData(dataString);
+        }
+        public void AddAnimal()
+        {
+            // ADD INPUT CHECKS FOR ALL
+            string name = null;
+            string age = null;
+            string kennel = null;
+            string foodReq = null;
+            string cost = null;
+            string species = null;
+            string vaccinated = null;
+            string adopted = null;
+            Console.WriteLine("Please input new animal details. Hit 'Enter' if detail is not known.\nName:");
+            name = Console.ReadLine();
+            Console.Write("Age:");
+            age = Console.ReadLine();
+            Console.Write("Kennel Number:");
+            kennel = Console.ReadLine();
+            Console.Write("Weekly Food Requirement:");
+            foodReq = Console.ReadLine();
+            Console.Write("Cost:");
+            cost = Console.ReadLine();
+            Console.Write("Species:");
+            species = Console.ReadLine();
+            Console.Write("Vaccination status:");
+            vaccinated = Console.ReadLine();
+            Console.Write("Adoption status:");
+            adopted = Console.ReadLine();
+
+            ExecuteAddData(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
         }
     }
 }
