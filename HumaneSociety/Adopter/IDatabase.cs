@@ -8,7 +8,6 @@ namespace Adopter
 {
     interface IDatabase
     {
-        void OpenConnection();
-        void CloseConnection();
+        
     }
 }

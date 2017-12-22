@@ -12,7 +12,12 @@ namespace Adopter
         {
             //AdopterEnvironment StartPage = new AdopterEnvironment();
             SQLManagement sql = new SQLManagement();
-            sql.NewQuery("SELECT * FROM Animal_Type");
+            List<string> result;
+            result = (from x in sql.dsHs.Animals where x.ID == 1 select x.Pet_Name).ToList();
+            result.ForEach((x) => { Console.WriteLine(x); });
+            
+            Console.WriteLine(result);
+            Console.ReadLine();
         }
     }
 }

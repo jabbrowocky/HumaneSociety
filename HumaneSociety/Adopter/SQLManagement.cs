@@ -9,57 +9,32 @@ using System.Data.SqlClient;
 
 namespace Adopter
 {
-    class SQLManagement : IDatabase
+    class SQLManagement 
     {
-        SqlConnection connection;
-        SqlCommand command;
-        SqlDataReader reader;
+        //SqlConnection connection;
+        //SqlCommand command;
+        //SqlDataReader reader;
+        public HumaneSocietyDataSet dsHs;
 
         public SQLManagement()
         {
-            this.connection = new SqlConnection("Data Source=JABBROWOCKY;Initial Catalog=HumaneSociety;Integrated Security=True");
+            //this.connection = new SqlConnection("Data Source=JABBROWOCKY;Initial Catalog=HumaneSociety;Integrated Security=True");
+            dsHs = new HumaneSocietyDataSet();
+                        
+        }
+        void StubOut()
+        {
             
         }
-        //public string GetQueryString()
+
+        //public void OpenConnection()
         //{
-        //    string queryString;
-
-        //    return queryString;
+        //    connection.Open();
         //}
-        public void NewQuery(string queryString)
-        {
-            command = new SqlCommand();
-            command.CommandText = queryString;
-            command.CommandType = CommandType.Text;
-            command.Connection = connection;
-            List<string> AddTo = new List<string>();
-            OpenConnection();
-            reader = command.ExecuteReader();
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    Console.WriteLine("{0}\t{1}", reader.GetInt32(0),
-                        reader.GetString(1));
-                }
-            }
-            else
-            {
-                Console.WriteLine("No rows found.");
-            }
-            reader.Close();
 
-            Console.ReadLine();
-            CloseConnection();
-        }
-        public void OpenConnection()
-        {
-            connection.Open();
-        }
-
-        public void CloseConnection()
-        {
-            connection.Close();
-        }
+        //public void CloseConnection()
+        //{
+        //    connection.Close();
+        //}
     }
 }
