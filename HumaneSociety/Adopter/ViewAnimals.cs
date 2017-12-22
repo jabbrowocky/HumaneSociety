@@ -8,7 +8,7 @@ namespace Adopter
 {
     class ViewAnimals
     {
-        AdopterEnvironment returnToPage;
+        
         IDatabase dB;
         public ViewAnimals(IDatabase dB)
         {
