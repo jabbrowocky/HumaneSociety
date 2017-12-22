@@ -57,7 +57,7 @@ namespace Adopter
         }
         public void GetProfileInfo()
         {
-            Console.WriteLine("Name: {0}{1}\nAge: {2}\nHousing Status: {3}\nCurrent Pets: {4}\n\nPress any key to continue.",firstName,lastName,age,housingStatus,currentPets);
+            Console.WriteLine("Name: {0} {1}\nAge: {2}\nHousing Status: {3}\nCurrent Pets: {4}\n\nPress any key to continue.",firstName,lastName,age,housingStatus,currentPets);
             Console.ReadKey();
             Console.Clear();
             

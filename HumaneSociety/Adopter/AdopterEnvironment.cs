@@ -12,7 +12,7 @@ namespace Adopter
         
         public AdopterEnvironment()
         {
-            
+            GetAdopterMenu();
             
         }
         public void GetAdopterMenu()
@@ -71,8 +71,8 @@ namespace Adopter
                         GetAdopterMenu();
                         break;
                 }
-
             }
+            
             finally
             {
                 GetProfileMenu();

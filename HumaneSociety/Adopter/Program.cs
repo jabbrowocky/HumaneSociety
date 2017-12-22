@@ -10,8 +10,9 @@ namespace Adopter
     {
         static void Main(string[] args)
         {
-            AdopterEnvironment StartPage = new AdopterEnvironment();
-            StartPage.GetAdopterMenu();
+            //AdopterEnvironment StartPage = new AdopterEnvironment();
+            SQLManagement sql = new SQLManagement();
+            sql.NewQuery("SELECT * FROM Animal_Type");
         }
     }
 }
