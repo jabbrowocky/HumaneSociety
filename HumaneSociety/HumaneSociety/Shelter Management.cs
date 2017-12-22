@@ -212,7 +212,7 @@ namespace HumaneSociety
             {
                 case 1:
                     Console.Clear();
-                    //AddAnimal();
+                    AddAnimal();
                     break;
                 case 2:
                     Console.Clear();
@@ -236,31 +236,151 @@ namespace HumaneSociety
             List<string> queryList = new List<string>();
             if (name != null)
             {
-                queryList.Add(name);
+                queryList.Add("'"+name+"'");
             }
-            if (age != null)
+            if (age == ".5" || foodReq == "0.5")
             {
-                queryList.Add(age);
+                queryList.Add("1");
+            }
+            if (age == "1")
+            {
+                queryList.Add("2");
+            }
+            if (age == "2")
+            {
+                queryList.Add("3");
+            }
+            if (age == "3")
+            {
+                queryList.Add("4");
+            }
+            if (age == "4")
+            {
+                queryList.Add("5");
+            }
+            if (age == "5")
+            {
+                queryList.Add("6");
+            }
+            if (age == "6")
+            {
+                queryList.Add("7");
+            }
+            if (age == "7")
+            {
+                queryList.Add("8");
+            }
+            if (age == "8")
+            {
+                queryList.Add("9");
+            }
+            if (age == "9")
+            {
+                queryList.Add("10");
+            }
+            if (age == "10")
+            {
+                queryList.Add("11");
+            }
+            if (age == "11")
+            {
+                queryList.Add("12");
+            }
+            if (age == "12")
+            {
+                queryList.Add("13");
             }
             if (kennel != null)
             {
                 queryList.Add(kennel);
             }
-            if (foodReq != null)
+            if (foodReq == ".5" || foodReq == "0.5")
             {
-                queryList.Add(foodReq);
+                queryList.Add("1");
+            }
+            if (foodReq == "1")
+            {
+                queryList.Add("2");
+            }
+            if (foodReq == "1.5")
+            {
+                queryList.Add("3");
+            }
+            if (foodReq == "2")
+            {
+                queryList.Add("4");
+            }
+            if (foodReq == "2.5")
+            {
+                queryList.Add("5");
+            }
+            if (foodReq == "3")
+            {
+                queryList.Add("6");
+            }
+            if (foodReq == "3.5")
+            {
+                queryList.Add("7");
+            }
+            if (foodReq == "4")
+            {
+                queryList.Add("8");
+            }
+            if (foodReq == "4.5")
+            {
+                queryList.Add("9");
+            }
+            if (foodReq == "5")
+            {
+                queryList.Add("10");
+            }
+            if (foodReq == "5.5")
+            {
+                queryList.Add("11");
+            }
+            if (foodReq == "6")
+            {
+                queryList.Add("12");
             }
             if (cost != null)
             {
                 queryList.Add(cost);
             }
-            if (vaccinated != null)
+            if (species == "Dog" || species == "dog")
             {
-                queryList.Add(cost);
+                queryList.Add("2");
             }
-            if (adopted != null)
+            if (species == "Cat" || species == "cat")
             {
-                queryList.Add(cost);
+                queryList.Add("1");
+            }
+            if (species == "Bird" || species == "bird")
+            {
+                queryList.Add("3");
+            }
+            if (species == "Rabbit" || species == "rabbit" || species == "Bunny" || species == "bunny")
+            {
+                queryList.Add("4");
+            }
+            if (species == "Ferret" || species == "ferret")
+            {
+                queryList.Add("5");
+            }
+            if (vaccinated == "Yes" || vaccinated == "yes" || vaccinated == "Y" || vaccinated == "y")
+            {
+                queryList.Add("1");
+            }
+            if (vaccinated == "No" || vaccinated == "no" || vaccinated == "N" || vaccinated == "n")
+            {
+                queryList.Add("0");
+            }
+            if (adopted == "Yes" || vaccinated == "yes" || vaccinated == "Y" || vaccinated == "y")
+            {
+                queryList.Add("1");
+            }
+            if (adopted == "No" || vaccinated == "no" || vaccinated == "N" || vaccinated == "n")
+            {
+                queryList.Add("0");
             }
             return queryList;
         }
@@ -287,6 +407,10 @@ namespace HumaneSociety
             {
                 queryList.Add("Cost");
             }
+            if (species != null)
+            {
+                queryList.Add("Animal_Type");
+            }
             if (vaccinated != null)
             {
                 queryList.Add("Shot_Status");
@@ -309,6 +433,36 @@ namespace HumaneSociety
             List<string> dataColumnsList = BuildQueryColumns(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
             string dataString = sqlConnect.ConstructAddDataString(dataValuesList, dataColumnsList);
             sqlConnect.AddData(dataString);
+        }
+        public void AddAnimal()
+        {
+            // ADD INPUT CHECKS FOR ALL
+            string name = null;
+            string age = null;
+            string kennel = null;
+            string foodReq = null;
+            string cost = null;
+            string species = null;
+            string vaccinated = null;
+            string adopted = null;
+            Console.WriteLine("Please input new animal details. Hit 'Enter' if detail is not known.\nName:");
+            name = Console.ReadLine();
+            Console.Write("Age:");
+            age = Console.ReadLine();
+            Console.Write("Kennel Number:");
+            kennel = Console.ReadLine();
+            Console.Write("Weekly Food Requirement:");
+            foodReq = Console.ReadLine();
+            Console.Write("Cost:");
+            cost = Console.ReadLine();
+            Console.Write("Species:");
+            species = Console.ReadLine();
+            Console.Write("Vaccination status:");
+            vaccinated = Console.ReadLine();
+            Console.Write("Adoption status:");
+            adopted = Console.ReadLine();
+
+            ExecuteAddData(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
         }
     }
 }

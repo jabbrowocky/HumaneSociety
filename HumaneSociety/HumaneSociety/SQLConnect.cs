@@ -41,14 +41,19 @@ namespace HumaneSociety
         {
             int i = 0;
             string queryString = "SELECT * FROM [Animals] ";
-            while (i < valuesString.Count-1)
+            while (i < valuesString.Count)
             {
                if(i == 0)
                 {
                     queryString += String.Format("WHERE {0} = '{1}'", columnsString[i], valuesString[i]);
                     i++;
-                } 
-               else
+                }
+               if(i == valuesString.Count-1)
+                {
+                    queryString += String.Format(" AND {0} = '{1}';", columnsString[i], valuesString[i]);
+                    i++;
+                }
+                else
                 {
                     queryString += String.Format(" AND {0} = '{1}'", columnsString[i], valuesString[i]);
                     i++;
@@ -75,7 +80,7 @@ namespace HumaneSociety
         {
             string valuesString = string.Join(", ", valuesList);
             string columnsString = string.Join(", ", columnsList);
-            string dataString = string.Format("INSERT into Animal ({0}) VALUES ({1})", columnsString, valuesString);           
+            string dataString = string.Format("INSERT into Animals ({0}) VALUES ({1})", columnsString, valuesString);           
             return dataString;
         }
     }
