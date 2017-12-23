@@ -33,7 +33,7 @@ namespace Adopter
                     break;
                 case "2":
                     Console.Clear();
-                    ViewAnimals();
+                    //ViewAnimals();
                     break;
             }
         }
@@ -80,9 +80,9 @@ namespace Adopter
             
         }
         
-        void ViewAnimals()
-        {
-            ViewAnimals animalQueries = new ViewAnimals(new SQLManagement());
-        }
+        //void ViewAnimals()
+        //{
+        //    ViewAnimals animalQueries = new ViewAnimals();
+        //}
     }
 }
