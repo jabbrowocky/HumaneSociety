@@ -8,6 +8,7 @@ namespace HumaneSociety
 {
     class Animal
     {
+        public string ID;
         public string Pet_Name;
         public string Animal_Type;
         public string Age;
@@ -17,8 +18,9 @@ namespace HumaneSociety
         public string Shot_Status;
         public string Food_Consumption;
 
-        public Animal(string Pet_Name, string Animal_Type, string Age, string Cost, string Room_Number, string Adoption_Status, string Shot_Status, string Food_Consumption)
+        public Animal(string ID, string Pet_Name, string Animal_Type, string Age, string Cost, string Room_Number, string Adoption_Status, string Shot_Status, string Food_Consumption)
         {
+            this.ID = ID;
             this.Pet_Name = Pet_Name;
             this.Animal_Type = Animal_Type;
             this.Age = Age;

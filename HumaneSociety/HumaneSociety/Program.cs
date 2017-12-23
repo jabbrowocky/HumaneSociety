@@ -12,11 +12,10 @@ namespace HumaneSociety
         {
             SQLConnect sqlConnect = new HumaneSociety.SQLConnect();
             sqlConnect.CreateSQLConnect();
-            //sqlConnect.SearchSQLQuery("SELECT * FROM [dbo].[Animal_Type] WHERE ID < 3");
-            //Console.ReadLine();
             Ledger ledger = new HumaneSociety.Ledger();
             Shelter_Management shelter_management = new Shelter_Management(ledger, sqlConnect);
             shelter_management.MainMenu();
+            Console.ReadLine();
         }
     }
 }

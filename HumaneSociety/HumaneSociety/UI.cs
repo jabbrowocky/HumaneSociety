@@ -8,13 +8,6 @@ namespace HumaneSociety
 {
     static class UI
     {
-        //Main menu
-        //------------------
-        //1. Add animal to DB
-        //2. Check animal rooms (display all?)
-        //3. Change animal adopted status
-        //4. Change animal shot status
-        //5. Pull up animal
         public static void DisplayMenu(string menu)
         {
             Console.Clear();

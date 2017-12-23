@@ -25,12 +25,13 @@ namespace HumaneSociety
             reader = command.ExecuteReader();
             try
             {
+                Console.WriteLine("[{0}]\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}", "index", "Name", "Species", "Age", "Weekly Food", "Kennel #", "Cost", "Vaccinated", "Adopted");
                 int i = 1;
                 while (reader.Read())
                 {
-                    Console.WriteLine(String.Format("[{0}] {1} {2} {3} {4} {5} {6} {7} {8}", i, reader["Pet_Name"], reader["Animal_Type"], reader["Age"], reader["Food_Consumption"], reader["Room_Number"], reader["Cost"], reader["Shot_Status"], reader["Adoption_Status"]));
+                    Console.WriteLine(String.Format("[{0}]\t{1}\t{2}\t{3}\t{4}\t\t{5}\t\t{6}\t{7}\t\t{8}", i, reader["Pet_Name"], reader["Animal_Type"], reader["Age"], reader["Food_Consumption"], reader["Room_Number"], reader["Cost"], reader["Shot_Status"], reader["Adoption_Status"]));
                     i++;
-                    Animal animal = new Animal(reader["Pet_Name"].ToString(), reader["Animal_Type"].ToString(), reader["Age"].ToString(), reader["Cost"].ToString(), reader["Room_Number"].ToString(), reader["Adoption_Status"].ToString(), reader["Shot_Status"].ToString(), reader["Food_Consumption"].ToString());
+                    Animal animal = new Animal(reader["ID"].ToString(), reader["Pet_Name"].ToString(), reader["Animal_Type"].ToString(), reader["Age"].ToString(), reader["Cost"].ToString(), reader["Room_Number"].ToString(), reader["Adoption_Status"].ToString(), reader["Shot_Status"].ToString(), reader["Food_Consumption"].ToString());
                     SearchAnimalList.Add(animal);
                 }
             }
@@ -51,29 +52,31 @@ namespace HumaneSociety
                 {
                     queryString += String.Format("WHERE {0} = '{1}'", columnsString[i], valuesString[i]);
                     i++;
+                    break;
                 }
-               if(i == valuesString.Count-1)
+               if(i == valuesString.Count)
                 {
                     queryString += String.Format(" AND {0} = '{1}';", columnsString[i], valuesString[i]);
                     i++;
+                    break;
                 }
                 else
                 {
                     queryString += String.Format(" AND {0} = '{1}'", columnsString[i], valuesString[i]);
                     i++;
+                    break;
                 }
             }
             return queryString;
 
         }
-        public int AddData(string inputData)
+        public void AddData(string inputData)
         {
             conn.Open();
             command = new SqlCommand(inputData, conn);
             try
             {
-               int rowsAffected = command.ExecuteNonQuery();
-               return rowsAffected;
+               command.ExecuteNonQuery();
             }
             finally
             {
@@ -86,6 +89,10 @@ namespace HumaneSociety
             string columnsString = string.Join(", ", columnsList);
             string dataString = string.Format("INSERT into Animals ({0}) VALUES ({1})", columnsString, valuesString);           
             return dataString;
+        }
+        public void AlterRow()
+        {
+            //find
         }
     }
 }

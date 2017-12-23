@@ -30,12 +30,13 @@ namespace HumaneSociety
                     break;
                 case 2:
                     Console.Clear();
-                    //find animal
-                    AlterAnimalInfoMenu();
+                    List<Animal> searchResults = ExecuteQuery(null, null, null, null, null, null, null, null);
+                    Animal animal = SelectAnimalToModify(searchResults);
+                    AlterAnimalInfoMenu(animal);
                     break;
                 case 3:
                     Console.Clear();
-                    //DisplayCurrentAnimals/Kennels();
+                    ExecuteQuery(null, null, null, null, null, null, null, "no");
                     break;
                 case 4:
                     Console.Clear();
@@ -72,7 +73,7 @@ namespace HumaneSociety
                     break;
                 case 3:
                     Console.Clear();
-                    //DisplayAllAnimals();
+                    ExecuteQuery(null, null, null, null, null, null, null, null);
                     break;
                 case 4:
                     Console.Clear();
@@ -80,24 +81,24 @@ namespace HumaneSociety
                     break;
             }
         }
-        public void AlterAnimalInfoMenu()
+        public void AlterAnimalInfoMenu(Animal animal)
         {
-            string name = null;
-            string age = null;
-            string kennel = null;
-            string foodReq = null;
-            string cost = null;
-            string species = null;
-            string vaccinated = null;
-            string adopted = null;
+            string name = animal.Pet_Name;
+            string age = animal.Age;
+            string kennel = animal.Room_Number;
+            string foodReq = animal.Food_Consumption;
+            string cost = animal.Cost;
+            string species = animal.Animal_Type;
+            string vaccinated = animal.Shot_Status;
+            string adopted = animal.Adoption_Status;
 
             string menuText = UI.AlterAnimalInfoText();
             UI.DisplayMenu(menuText);
-            int input = UI.GetInput(8);
+            int input = UI.GetInput(10);
             switch (input)
             {
                 case 1:
-                   name = AlterTrait("name");
+                   animal.Pet_Name = AlterTrait("name");
                    break;
                 case 2:
                     age = AlterTrait("age");
@@ -115,9 +116,14 @@ namespace HumaneSociety
                     species = AlterTrait("species");
                     break;
                 case 7:
-                    ExecuteQuery(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
+                    vaccinated = AlterTrait("vaccinated");
                     break;
                 case 8:
+                    adopted = AlterTrait("adopted");
+                    break;
+                case 9:
+                    GetDifferentValues(animal);
+                case 10:
                     Console.Clear();
                     MainMenu();
                     break;
@@ -140,7 +146,7 @@ namespace HumaneSociety
             UI.DisplayMenu(menuText);
             while (flag == false)
             {
-                int input = UI.GetInput(10);
+                int input = UI.GetInput(11);
                 switch (input)
                 {
                     case 1:
@@ -180,18 +186,19 @@ namespace HumaneSociety
                         UI.DisplayMenu(menuText);
                         break;
                     case 7:
-                        species = AlterTrait("vaccination status");
+                        vaccinated = AlterTrait("vaccination status");
                         Console.Clear();
                         menuText = UI.AnimalTraitsText();
                         UI.DisplayMenu(menuText);
                         break;
                     case 8:
-                        species = AlterTrait("adoption status");
+                        adopted = AlterTrait("adoption status");
                         Console.Clear();
                         menuText = UI.AnimalTraitsText();
                         UI.DisplayMenu(menuText);
                         break;
                     case 9:
+                        Console.Clear();
                         flag = true;
                         ExecuteQuery(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
                         break;
@@ -224,21 +231,22 @@ namespace HumaneSociety
                     break;
             }
         }
-        public void ExecuteQuery(string name, string age, string kennel, string foodReq, string cost, string species, string vaccinated, string adopted)
+        public List<Animal> ExecuteQuery(string name, string age, string kennel, string foodReq, string cost, string species, string vaccinated, string adopted)
         {
             List<string> queryValuesList = BuildQueryValues(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
             List<string> queryColumnsList = BuildQueryColumns(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
             string queryString = sqlConnect.ConstructSearhString(queryValuesList, queryColumnsList);
-            sqlConnect.SearchSQLQuery(queryString);
+            List<Animal> searchResults = sqlConnect.SearchSQLQuery(queryString);
+            return searchResults;
         }
         public List<string> BuildQueryValues(string name, string age, string kennel, string foodReq, string cost, string species, string vaccinated, string adopted)
         {
             List<string> queryList = new List<string>();
-            if (name != null)
+            if (name != null && name !="")
             {
                 queryList.Add("'"+name+"'");
             }
-            if (age == ".5" || foodReq == "0.5")
+            if (age == ".5" || age == "0.5" && age != "")
             {
                 queryList.Add("1");
             }
@@ -290,7 +298,7 @@ namespace HumaneSociety
             {
                 queryList.Add("13");
             }
-            if (kennel != null)
+            if (kennel != null && kennel != "")
             {
                 queryList.Add(kennel);
             }
@@ -342,7 +350,7 @@ namespace HumaneSociety
             {
                 queryList.Add("12");
             }
-            if (cost != null)
+            if (cost != null && cost !="")
             {
                 queryList.Add(cost);
             }
@@ -374,11 +382,11 @@ namespace HumaneSociety
             {
                 queryList.Add("0");
             }
-            if (adopted == "Yes" || vaccinated == "yes" || vaccinated == "Y" || vaccinated == "y")
+            if (adopted == "Yes" || adopted == "yes" || adopted == "Y" || adopted == "y")
             {
                 queryList.Add("1");
             }
-            if (adopted == "No" || vaccinated == "no" || vaccinated == "N" || vaccinated == "n")
+            if (adopted == "No" || adopted == "no" || adopted == "N" || adopted == "n")
             {
                 queryList.Add("0");
             }
@@ -387,35 +395,35 @@ namespace HumaneSociety
         public List<string> BuildQueryColumns(string name, string age, string kennel, string foodReq, string cost, string species, string vaccinated, string adopted)
         {
             List<string> queryList = new List<string>();
-            if (name != null)
+            if (name != null && name != "")
             {
                 queryList.Add("Pet_Name");
             }
-            if (age != null)
+            if (age != null && age != "")
             {
                 queryList.Add("Age");
             }
-            if (kennel != null)
+            if (kennel != null && kennel != "")
             {
                 queryList.Add("Room_Number");
             }
-            if (foodReq != null)
+            if (foodReq != null && foodReq != "")
             {
                 queryList.Add("Food_Consumption");
             }
-            if (cost != null)
+            if (cost != null && cost != "")
             {
                 queryList.Add("Cost");
             }
-            if (species != null)
+            if (species != null && species != "")
             {
                 queryList.Add("Animal_Type");
             }
-            if (vaccinated != null)
+            if (vaccinated != null && vaccinated != "")
             {
                 queryList.Add("Shot_Status");
             }
-            if (adopted != null)
+            if (adopted != null && adopted != "")
             {
                 queryList.Add("Adoption_Status");
             }
@@ -463,6 +471,16 @@ namespace HumaneSociety
             adopted = Console.ReadLine();
 
             ExecuteAddData(name, age, kennel, foodReq, cost, species, vaccinated, adopted);
+            Console.Clear();
+            Console.WriteLine("Added row to Animal table.");
         }
+        public Animal SelectAnimalToModify(List<Animal> searchResults)
+        {
+            Console.WriteLine("Select the index of the animal you would like to modify.\n");
+            int input = UI.GetInput(searchResults.Count);
+            Animal animal = searchResults[input - 1];
+            return animal;
+        }
+        public void GetDifferentValues()
     }
 }
