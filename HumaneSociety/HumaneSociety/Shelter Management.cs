@@ -27,34 +27,31 @@ namespace HumaneSociety
                 case 1:
                     Console.Clear();
                     ViewAnimalMenu();
+                    Console.ReadLine();
+                    MainMenu();
                     break;
                 case 2:
                     Console.Clear();
-                    List<Animal> searchResults = ExecuteQuery(null, null, null, null, null, null, null, null);
+                    List<Animal> searchResults = ExecuteQuery(null, null, null, null, null, null, "no", null);
                     Animal animal = SelectAnimalToModify(searchResults);
-                    AlterAnimalInfoMenu(animal);
+                    ChangeVaccinatedStatus(animal);
                     break;
                 case 3:
                     Console.Clear();
-                    ExecuteQuery(null, null, null, null, null, null, null, "no");
+                    searchResults = ExecuteQuery(null, null, null, null, null, null, null, "no");
+                    animal = SelectAnimalToModify(searchResults);
+                    ChangeAdoptedStatus(animal);
                     break;
                 case 4:
                     Console.Clear();
-                    //AdministerVaccine();
+                    AnimalIntakeMenu();
                     break;
                 case 5:
                     Console.Clear();
-                    //AdoptOutAnimal();
-                    break;
-                case 6:
-                    Console.Clear();
-                    AnimalIntakeMenu();
-                    break;
-                case 7:
-                    Console.Clear();
-                    //CheckLedger();
+                    ledger.DisplayLedger();
                     break;
             }
+            MainMenu();
         }
         public void ViewAnimalMenu()
         {
@@ -81,7 +78,7 @@ namespace HumaneSociety
                     break;
             }
         }
-        public void AlterAnimalInfoMenu(Animal animal)
+        public void AlterAnimalInfo(Animal animal)
         {
             string name = animal.Pet_Name;
             string age = animal.Age;
@@ -122,7 +119,8 @@ namespace HumaneSociety
                     adopted = AlterTrait("adopted");
                     break;
                 case 9:
-                    GetDifferentValues(animal);
+                    AlterAnimalInfo(animal);
+                    break;
                 case 10:
                     Console.Clear();
                     MainMenu();
@@ -481,6 +479,47 @@ namespace HumaneSociety
             Animal animal = searchResults[input - 1];
             return animal;
         }
-        public void GetDifferentValues()
+        public void ChangeVaccinatedStatus(Animal animal)
+        {
+            string text = UI.AdministerVaccineText();
+            UI.DisplayMenu(text);
+            int input = UI.GetInput(2);
+            switch (input)
+            {
+                case 1:
+                    Console.Clear();
+                    string update = sqlConnect.ConstructAlterRowString(animal.ID, "Shot_Status", "1");
+                    sqlConnect.AddData(update);
+                    Console.WriteLine("{0} has been vaccinated", animal.Pet_Name);
+                    Console.ReadLine();
+                    break;
+                case 2:
+                    break;
+            }
+            MainMenu();
+        }
+        public void ChangeAdoptedStatus(Animal animal)
+        {
+            string text = UI.AdoptText();
+            UI.DisplayMenu(text);
+            int input = UI.GetInput(2);
+            switch (input)
+            {
+                case 1:
+                    Console.Clear();
+                    string updateAdoptedStatus = sqlConnect.ConstructAlterRowString(animal.ID, "Adoption_Status", "1");
+                    sqlConnect.AddData(updateAdoptedStatus);
+                    string updateRoomNumber = sqlConnect.ConstructAlterRowString(animal.ID, "Room_Number", "NULL");
+                    sqlConnect.AddData(updateRoomNumber);
+                    ledger.AddRevenue(animal.Cost);
+                    Console.WriteLine("{0} has been adopted out, Ledger increased by ${1}", animal.Pet_Name, animal.Cost);
+                    Console.ReadLine();
+                    break;
+                case 2:
+                    break;
+            }
+            MainMenu();
+        }
+
     }
 }

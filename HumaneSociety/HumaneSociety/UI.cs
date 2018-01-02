@@ -39,7 +39,7 @@ namespace HumaneSociety
         }
         public static string MainMenuText()
         {
-            string text = "Shelter Management Main Menu \n\n[1] View Animals \n[2] Alter Animal Info\n[3] Check Kennels \n[4] Administer Vaccination \n[5] Adopt out animal \n[6] Animal Intake\n[7]Check Ledger";
+            string text = "Shelter Management Main Menu \n\n[1] View Animals \n[2] Administer Vaccination \n[3] Adopt out animal \n[4] Animal Intake\n[5]Check Ledger";
             return text;
         }
         public static string AnimalViewText()
@@ -67,6 +67,15 @@ namespace HumaneSociety
             string text = "Animal Intake\n\n[1] Manually Input Animal\n [2] Accept Animal info from list\n[3] Main menu";
             return text;
         }
-        
+        public static string AdministerVaccineText()
+        {
+            string text = "Is this animal now vaccinated?\n\n[1] Yes\n[2] No";
+            return text;
+        }
+        public static string AdoptText()
+        {
+            string text = "Is this animal now adopted?\n\n[1] Yes\n[2] No";
+            return text;
+        }
     }
 }

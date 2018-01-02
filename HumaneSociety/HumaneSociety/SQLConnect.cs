@@ -90,9 +90,10 @@ namespace HumaneSociety
             string dataString = string.Format("INSERT into Animals ({0}) VALUES ({1})", columnsString, valuesString);           
             return dataString;
         }
-        public void AlterRow()
+        public string ConstructAlterRowString(string ID, string trait, string value)
         {
-            //find
+            string update = string.Format("UPDATE Animals SET {0} = {1} WHERE ID = {2}", trait, value, ID);
+            return update;
         }
     }
 }

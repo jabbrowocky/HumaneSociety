@@ -8,6 +8,18 @@ namespace HumaneSociety
 {
     class Ledger
     {
-        float Revenue;
+        public float Revenue;
+
+        public void AddRevenue(string cost)
+        {
+            float revenue = Int32.Parse(cost);
+            Revenue += revenue;
+        }
+        public void DisplayLedger()
+        {
+            string revenue = Revenue.ToString();
+            Console.WriteLine("$"+revenue);
+            Console.ReadLine();
+        }
     }
 }
